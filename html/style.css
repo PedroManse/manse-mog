@@ -1,8 +1,13 @@
-body {
+html {
 	background-color: #181818;
 	color: #FFFFFF;
 }
 tbody {
+	tr {
+		td.day { text-align: center; }
+		td.song { text-align: left; }
+		td.band { text-align: center; }
+	}
 	tr:nth-child(even) {
 		background-color: #202020;
 	}
