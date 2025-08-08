@@ -2,14 +2,64 @@ html {
 	background-color: #181818;
 	color: #FFFFFF;
 }
-tbody {
-	tr {
-		td.day { text-align: center; }
-		td.song { text-align: left; }
-		td.band { text-align: center; }
-	}
-	tr:nth-child(even) {
-		background-color: #202020;
-	}
+
+* {
+	padding: 0;
+	border: 0;
+	margin: 0;
 }
 
+div {
+	width: 100vw;
+	display: flex;
+
+	div.cats {
+		display: flex;
+		flex-wrap: wrap;
+		width: 20%;
+		height: 50vh;
+		float: right;
+		img {
+			width: 10vw;
+			height: 10vw;
+		}
+	}
+
+	table {
+		padding: 0 0 0 3%;
+		width: 76%;
+		tbody {
+			tr {
+				height: 56px ;
+				td.day {
+					text-align: center;
+					width: 7%;
+				}
+				td.track {
+					text-align: left;
+					width: 80%;
+				}
+				td.artist {
+					text-align: left;
+					width: 13%;
+				}
+				td.links {
+					float: right;
+					padding: 0;
+					width: 56px;
+					img.deezer {
+						a {
+							width: 56px;
+							height: 56px;
+							display: block;
+							padding: 0;
+						}
+					}
+				}
+			}
+			tr:nth-child(even) {
+				background-color: #202020;
+			}
+		}
+	}
+}
