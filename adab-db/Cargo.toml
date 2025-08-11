@@ -1,0 +1,13 @@
+[package]
+name = "adab"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+chrono = "0.4.41"
+clap_derive = "4.5.41"
+diesel = { version = "2.2.12", features = ["chrono", "sqlite"] }
+dotenvy = "0.15.7"
+maud = "0.27.0"
+reqwest = "0.12.22"
+thiserror = "2.0.12"
