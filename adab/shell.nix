@@ -1,11 +1,16 @@
-{ pkgs ? import <nixpkgs> {} }:
+{
+  pkgs ? import <nixpkgs> { },
+}:
 pkgs.mkShellNoCC {
-	packages = with pkgs; [
-		pkg-config
-		openssl
-	];
+  nativeBuildInputs = with pkgs.buildPackages; [
+    openssl
+    pkg-config
+    sqlite
+  ];
 
-	COMPUTER_NAME="dev-adab";
-	PKG_CONFIG_PATH = "${pkgs.openssl.dev}/lib/pkgconfig";
+  programs = with pkgs; [
+    diesel-cli
+    sqlite-interactive
+  ];
+  PKG_CONFIG_PATH="{pkgs.openssl.dev}/lib/pkgconfig";
 }
-

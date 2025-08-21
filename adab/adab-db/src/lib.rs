@@ -75,14 +75,15 @@ fn make_args() {
     }
 }
 
-fn main() -> Result<()> {
-    dotenvy::dotenv()?;
-    let mut con = SqliteConnection::establish(&std::env::var("DATABASE_URL")?)?;
+//fn main() -> Result<()> {
+//    dotenvy::dotenv()?;
+//    let mut con = SqliteConnection::establish(&std::env::var("DATABASE_URL")?)?;
+//
+//    let entries = list_entries(&mut con)?;
+//    println!("{entries:?}");
+//    let page = make_page(&entries);
+//    //println!("{}", page.render().into_string());
+//
+//    Ok(())
+//}
 
-    let entries = list_entries(&mut con)?;
-    println!("{entries:?}");
-    let page = make_page(&entries);
-    //println!("{}", page.render().into_string());
-
-    Ok(())
-}
