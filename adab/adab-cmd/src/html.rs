@@ -41,7 +41,7 @@ pub fn adab_table(tracks: Vec<crate::Track>) -> Markup {
     }
 }
 
-const CATS: [&str; 7] = [
+const CATS: &[&str] = &[
     "https://media.tenor.com/3l2spchssoMAAAAm/happy-mothers-day.webp",
     "https://media.tenor.com/abdvZmOX64QAAAAi/cat-cat-meme.gif",
     "https://media.tenor.com/HAU_nZjbw9gAAAAm/cat-dance.webp",
@@ -59,12 +59,12 @@ impl Render for crate::Track {
                 td.track { (self.name) }
                 td.artist { (self.artist) }
                 td.links {
-                    @if let Some(link) = &self.deezer_link {
+                    @if let Some(link) = &self.link {
                         a href=(link) {
-                            img src=(self.album_art_56px);
+                            img src=(self.album_art_56px.as_ref().unwrap());
                         }
                     } @else {
-                        img title="Link could not be found" src=(self.album_art_56px);
+                        img title="Link could not be found" src=(self.album_art_56px.as_ref().unwrap());
                     }
                 }
             }

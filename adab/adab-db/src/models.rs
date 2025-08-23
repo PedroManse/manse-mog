@@ -1,5 +1,4 @@
 use diesel::prelude::*;
-use maud::{Render, html};
 
 #[derive(Debug, Queryable, Selectable, Insertable)]
 #[diesel(table_name = crate::schema::entries)]
@@ -7,9 +6,11 @@ use maud::{Render, html};
 pub struct Entry {
     pub song: String,
     pub band: String,
+    pub link: Option<String>,
+    pub album_250px: Option<String>,
+    pub album_56px: Option<String>,
     pub date: chrono::NaiveDate,
-    pub deezer_link: Option<String>,
-    pub spotify_link: Option<String>,
+    pub source_id: i32,
 }
 
 impl Entry {
@@ -18,30 +19,3 @@ impl Entry {
     }
 }
 
-impl Render for Entry {
-    fn render(&self) -> maud::Markup {
-        html! {
-            tr {
-                th {
-                    (self.song)
-                }
-                td {
-                    (self.band)
-                }
-                td {
-                    (self.date)
-                }
-                td {
-                    @if let Some(link) = &self.deezer_link {
-                        a class="deezer" href=(link){}
-                    }
-                }
-                td {
-                    @if let Some(link) = &self.spotify_link {
-                        a class="spotify" href=(link){}
-                    }
-                }
-            }
-        }
-    }
-}

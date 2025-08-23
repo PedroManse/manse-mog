@@ -6,4 +6,6 @@ edition = "2024"
 [dependencies]
 adab-db = { path = "../adab-db" }
 adab-search = { path = "../adab-search" }
+chrono = "0.4.41"
+maud = "0.27.0"
 thiserror = "2.0.16"

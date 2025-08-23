@@ -1,14 +1,12 @@
-use chrono::NaiveDate;
 use diesel::associations::HasTable;
 use diesel::prelude::*;
-mod models;
-use maud::html;
+pub mod models;
 use models::Entry;
-
 mod schema;
+pub use diesel;
 
 #[derive(Debug, thiserror::Error)]
-enum Error {
+pub enum Error {
     #[error(transparent)]
     SQLCon(#[from] diesel::ConnectionError),
     #[error(transparent)]
@@ -25,7 +23,7 @@ enum Error {
 
 type Result<T> = std::result::Result<T, Error>;
 
-fn include_entry(db: &mut SqliteConnection, e: Entry) -> Result<()> {
+pub fn include_entry(db: &mut SqliteConnection, e: Entry) -> Result<()> {
     use self::schema::entries::dsl::*;
     diesel::insert_into(entries::table())
         .values(e)
@@ -33,7 +31,7 @@ fn include_entry(db: &mut SqliteConnection, e: Entry) -> Result<()> {
     Ok(())
 }
 
-fn list_entries(db: &mut SqliteConnection) -> Result<Vec<Entry>> {
+pub fn list_entries(db: &mut SqliteConnection) -> Result<Vec<Entry>> {
     use self::schema::entries::dsl::*;
     entries
         .select(Entry::as_select())
@@ -41,49 +39,16 @@ fn list_entries(db: &mut SqliteConnection) -> Result<Vec<Entry>> {
         .map_err(Error::from)
 }
 
-fn make_page(entries: &[Entry]) -> maud::PreEscaped<String> {
-    html!{
-        table {
-            tr {
-                th { "Song" }
-                th { "Band" }
-                th { "Day" }
-                th colspan="2" { "Links" }
-            }
-            @for entry in entries {
-                (entry)
-            }
-        }
-    }
+pub fn check_can_add(db: &mut SqliteConnection, name: &str) -> Result<bool> {
+    use self::schema::entries::dsl::*;
+    let x: Vec<Entry> = entries::table()
+        .select(Entry::as_select())
+        .filter(song.eq(name))
+        .load(db)?;
+    Ok(x.is_empty())
 }
 
-struct Cli {
-    song: String,
-    band: Option<String>,
-    ignore_deezer: bool,
-    ignore_spotify: bool,
+pub fn con() -> Result<SqliteConnection> {
+    dotenvy::dotenv()?;
+    SqliteConnection::establish(&std::env::var("DATABASE_URL")?).map_err(Error::from)
 }
-
-fn make_args() {
-    enum Status {
-        Song(String),
-        Band(String, String),
-    }
-    let mut s = Status::Song(String::new());
-    for arg in std::env::args() {
-
-    }
-}
-
-//fn main() -> Result<()> {
-//    dotenvy::dotenv()?;
-//    let mut con = SqliteConnection::establish(&std::env::var("DATABASE_URL")?)?;
-//
-//    let entries = list_entries(&mut con)?;
-//    println!("{entries:?}");
-//    let page = make_page(&entries);
-//    //println!("{}", page.render().into_string());
-//
-//    Ok(())
-//}
-
