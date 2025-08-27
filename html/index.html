@@ -7,8 +7,102 @@
 	<link href="style.css" rel="stylesheet"/>
 </head>
 <body>
-	<h1>Hi!</h1>
-	<a href="adab.html">Another day, another banger</a> <br>
-	<a href="tools/">Tools</a> <br>
+	<pre>
+	1) Explique o conceito de multiprogramação quanto a:
+	- Objetivos
+	- Funcionamento.
+	- Benefícios
+
+1) Multiprogramação tem como objetivo executar multiplos programas ao mesmo
+tempo. Ela faz isso possibilitanto que um processo utilize a CPU enquanto um ou
+mais processos utilizam os PESs do computador. Os processos ganham acesso a CPU
+por meio do sistema de gerenciamento de processos do sistema operacional, e
+perdem esse acesso quando fazem operações de entrada e saida por meio de
+syscalls. A multiprogramação acelera a execução dos programas e maximiza o uso da CPU.
+Pois, sem a isso, toda interação de entrada/saída bloquearia o funcionamento da CPU.
+
+2) Quais a métricas de desempenho utilizadas em sistemas computacionais? Exemplifique.
+
+2) Existem algumas métricas para analisar o funcionamento de um sistema e de
+programas, tipo a eficiêcia da CPU para executar uma tarefa, dado como E =
+tempo CPU / tempo Total. Que indica qual fração do tempo total da execução do
+programa a CPU estava ativa. Ou a produtiivdade do sistema, TS, que indica
+quantos programas podem ser executados em um período de tempo. Ou o tempo de
+execução de um programa, que é a soma do tempo de CPU e do tempo de E/S, ou, no
+caso de um sistema multiprogramação, a soma de tempo de CPU, tempo de E/S (+
+tempo esperando disponilibidade dos dispositivos de PES e pefiréricos) e o
+tempo de espera de acesso a CPU após a conclusão de uma interação de E/S.
+Também é possível analisar outras métricas, como energia consumida, tempo médio
+por instruções, etc.
+
+3) O que é arquitetura de sistemas computacionais e quais os tipos mais utilizados hoje no mercado? explique e dê exemplos.
+
+3) Arquitetura de sistemas operacionais envolve o design e implementação de
+sistemas operacionais para diversos dispositivos, como computadores, celulares
+e outros. Os sistemas mais famosos são as distribuições de WindowsNT, como
+Windows 10, 11 e outras versões, as distribuições de mac, como macOS Sequoia e
+as distribuições de linux, como Debian, Ubuntu e muitas outras. Também existem
+sistemas operacionais para dispositivos que não são computadores, como Android,
+que foi feito para celulares e Raspberry Pi OS (que é baseado em Debiam), mas
+foi criado para ser executado em um Raspberry Pi.
+
+4) Explique, compare e dê exemplo: sistemas multitarefas (multi-task), sistemas multi-thread,
+
+4) Sistemas multi-thread têm várias CPUs, também chamados de "cores", que podem
+agir ao mesmo tempo entre si. Enquanto sistemas multitarefas podem utilizar
+várias CPUs, mas o ponto principal é o algoritimo de alocação de tempo de CPU,
+que, basicamente, determina quais programas serão executados e até por quanto
+tempo (por meio de uma espécie de alarme dentro da CPU que passa o controle
+para o sistema operacional após um tempo).
+
+5)No sistema de gerenciamento de processador quais os algoritmos mais utilizados? Explique o funcionamento de um deles
+
+5) Os algoritimos CFS ("Completely Fair Scheduler", implementado no Linux) e
+Round-Robin são gerenciadores famosos de tempo de CPU. O algoritimo Round-Robin
+"guarda" a mesma quantidade de tempo para todos os processos que precisam ser
+executados e os guarda em uma lista. Dessa lista um processo é selecionado e é
+executado pelo seu tempo alocado. Após o tempo expirar, o sistema operacional
+reganha controle, geralmente por uma interrupt gerada pela própria CPU, e o
+próximo item da lista é executado. Quando o algoritimo chega no final da lista
+os processos voltam a serem executados do começo.
+
+6) Explique o conceito de processo, os estados e como o sistema operacional faz o controle?
+
+6) Um processo é uma instância de algum código executável, que pode estar no
+modo de usuário ou no modo de kernel. No modo de kernel o processo pode
+interagir diretamente com o hardware do sistema, enquanto no modo de usuário
+precisa interarir com o sistema operacional para utilizar o hardware. O sistema
+operacional mantem o controle desses processos por uma estrtura interna que
+guarda as informações dos processos, como comando que foi utilizado para
+inicia-lo, quais páginas de RAM ele usa e quais arquivos (e outras streams)
+estão abertas. Também é guardado o estado do processo dentro do sistema
+operacional, indicando se ele está ativo, esperando uma atividade de
+entrada/saída, a finalização de outro processo, etc.
+
+7) Explique o conceito de memória virtual quando aos componentes, funcionamento, benefícios e limites
+
+7) A memória virtual é a técnica de mapeamento de memória física de um
+periférico, como SSD para uma área da memória de um processo. Essa memória é
+ativada quando não há memória RAM suficiente no sistema, mas mais memória é
+ncessária. Quando essa necessidade é atingida, geralmente, o sistema
+operacional detecta uma página da memória de um processo que não é utilizada
+muito comumente e a "transporta" para o dispositivo físico da máquina
+e libera a página da RAM que estava sendo utilizada. Essa técnica é útil para
+não causar travamento ou erros descenessários quando uma máquina tem RAM
+insuficiente. Mas essa memória sofre uma gigantesta limitação em relação a RAM,
+a performace dos dispositivos que são utilizados para memória virtual são, em
+ordens de magnitude, mais lentos.
+
+8) Explique Interrupção: Objetivos, funcionamento e exemplos.
+
+Interrupções server para fazer a CPU executar um código específico indepentende
+do que estava sendo executado antes. Isso pode ser iniciado por várias partes
+do computador, como um teclado PS/2, ou um processo pedindo que o sistema
+operacional faça alguma ação privilegiada. Quando interrupções são ativadas, a
+CPU guarda o PSW, para poder retornar a execução normal, e define o PSW com um
+novo valor, para executar um código, geralmente do sistema operacional, em modo
+elevado.
+
+	</pre>
 </body>
 </html>
