@@ -1,0 +1,11 @@
+html {
+	font-size: 5rem;
+	div#pages > a {
+		color: #DD6552;
+		text-decoration: none;
+		display: block;
+		width: 100%;
+	}
+}
+
+
