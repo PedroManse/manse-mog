@@ -1,0 +1,15 @@
+html {
+	background-color: #181818;
+	color: #FFFFFF;
+}
+
+* {
+	padding: 0;
+	border: 0;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: normal;
+	margin: 0;
+}
+
