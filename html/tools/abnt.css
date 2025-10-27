@@ -1,0 +1,9 @@
+#modes {
+	.mode {
+		.model { display: none; }
+		display: none;
+	}
+	#book-1-author {
+		display: block;
+	}
+}
