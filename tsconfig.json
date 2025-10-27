@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "es2023",
+    "lib": ["DOM", "es2023"],
+    "module": "es6",
+    "rootDir": "./html",
+    "moduleResolution": "node",
+    "allowArbitraryExtensions": true,
+    "outDir": "./dist",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitAny": false,
+    "skipLibCheck": true
+  }
+}
