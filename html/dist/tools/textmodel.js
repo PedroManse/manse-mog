@@ -132,6 +132,7 @@ window.addEventListener('load', () => {
         const modeText = $("textarea.model", mode);
         const modeForm = El("form");
         mode.insertAdjacentElement('afterbegin', modeForm);
+        // @ts-expect-error maybe i'll fix this some day
         const out = El("textarea", [], { class: 'output', style: { width: "400px" } });
         mode.insertAdjacentElement('beforeend', out);
         const vars = {};

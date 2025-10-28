@@ -6,7 +6,7 @@
     "rootDir": "./html",
     "moduleResolution": "node",
     "allowArbitraryExtensions": true,
-    "outDir": "./dist",
+    "outDir": "./html/dist",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
