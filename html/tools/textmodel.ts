@@ -1,6 +1,6 @@
 type Attrs = { [key: string]: string } & { style?: CSSStyleDeclaration };
 
-function createElement<E extends HTMLElement>(
+function El<E extends HTMLElement>(
 	name: string,
 	content: string | HTMLElement[] | HTMLElement = [],
 	attributes: Attrs = {},
@@ -27,8 +27,12 @@ function createElement<E extends HTMLElement>(
 	return el as E;
 }
 
-const $ = (query: string, doc: ParentNode = document) => doc.querySelector(query);
-const $$ = (query: string, doc: ParentNode = document) => doc.querySelectorAll(query);
+const $ = <E extends Element>(query: string, doc: ParentNode = document) => doc.querySelector(query) as E | null;
+const $$ = <E extends Element>(query: string, doc: ParentNode = document) => doc.querySelectorAll(query) as NodeListOf<E>;
+
+function snakeCase(text: string): string {
+	return text.replaceAll(' ', '_');
+}
 
 type ModelSlice = | {
 	type: 'text',
@@ -134,7 +138,7 @@ function parseModel(text: string): Model {
 
 function renderModel(slices: ModelSlice[], vars: Record<string, string | null>): string {
 	const givenVariables = Object.entries(vars)
-		.filter(([_, value]) => value !== null)
+		.filter(([_, value]) => value)
 		.map(([name, _]) => name);
 	let buffer = '';
 
@@ -145,7 +149,7 @@ function renderModel(slices: ModelSlice[], vars: Record<string, string | null>):
 			buffer += item.text;
 		} else {
 			const can = item.needs.every(i => givenVariables.includes(i));
-			if (can || true) {
+			if (can) {
 				const txt = renderModel(item.slices, vars);
 				buffer += txt;
 			}
@@ -155,27 +159,55 @@ function renderModel(slices: ModelSlice[], vars: Record<string, string | null>):
 }
 
 window.addEventListener('load', () => {
-	const txt = "{SOBRENOME}, {Nome}. {Título}[: {subtítulo}]. [{Edição}. ]{Local de publicação}: {Editora}, {Ano de publicação}";
-	const m = parseModel(txt);
-	const t = renderModel(m.slices, {
-		SOBRENOME: "MANSE",
-		Nome: "Pedro",
-	});
-	console.log(m);
-	console.log(t);
+	const modes: Record<string, Element> = {};
 
-	const div = $("#test");
-	const out = $("pre");
-	const vars = {};
-	for (const name of m.inputs) {
-		div?.appendChild(createElement("label", `${name}: `, { type: "text", name, }));
-		const input = div?.appendChild(createElement<HTMLInputElement>("input", [], { type: "text", name, }));
-		div?.appendChild(createElement("br"));
-		input?.addEventListener("change", () => {
-			vars[name] = input.value;
-			out!.innerHTML = renderModel(m.slices, vars);
+	$$("div#modes > div.mode").forEach(mode => {
+		const modeName = mode.getAttribute('name');
+		modes[modeName ?? ""] = mode;
+		const modeText = $<HTMLTextAreaElement>("textarea.model", mode);
+
+		const modeForm = El("form");
+		mode.insertAdjacentElement('afterbegin', modeForm);
+		const out = El("textarea", [], { class: 'output', style: { width: "400px" } });
+		mode.insertAdjacentElement('beforeend', out);
+
+		const vars = {};
+		const m = parseModel(modeText!.innerHTML);
+		for (const name of m.inputs) {
+			const snakeCaseName = snakeCase(name);
+			const input = El<HTMLInputElement>("input", [], { type: "text", name: snakeCaseName, });
+
+			modeForm.appendChild(El("label", `${name}: `, { type: "text", for: snakeCaseName, }));
+			modeForm.appendChild(input);
+			modeForm.appendChild(El("br"));
+
+			input.addEventListener("change", () => {
+				vars[name] = input.value;
+				out.innerHTML = renderModel(m.slices, vars);
+			});
+		}
+	});
+
+	const modeSelector = $<HTMLSelectElement>("select#mode-selector");
+	const modeOptions = Object.keys(modes).map(name =>
+		El("option", name, { value: name })
+	);
+	let selectedModeName: string;
+	modeSelector!.append(...modeOptions);
+	modeSelector!.addEventListener("change", () => {
+		const modeName = modeSelector!.value;
+		selectedModeName = modeName
+		const selectedMode = modes[modeName];
+		Object.values(modes).forEach(m => {
+			m.classList.remove('selected');
 		});
-	}
+		selectedMode.classList.add('selected');
+	});
+	$<HTMLButtonElement>("button")?.addEventListener('click', () => {
+		const selectedMode = modes[selectedModeName];
+		console.log($("textarea.output", selectedMode)?.innerHTML)
+		navigator.clipboard.writeText($("textarea.output", selectedMode)?.innerHTML ?? '');
+	})
 });
 
 

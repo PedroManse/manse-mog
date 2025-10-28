@@ -3,7 +3,7 @@
 		.model { display: none; }
 		display: none;
 	}
-	#book-1-author {
+	.mode.selected {
 		display: block;
 	}
 }

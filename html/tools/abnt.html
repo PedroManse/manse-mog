@@ -6,125 +6,66 @@
 		<link rel="stylesheet" href="abnt.css">
 	</head>
 	<body>
-		<div id="test">
-			<pre></pre>
-		</div>
+		<select id="mode-selector">
+			<option value=""> Selecione um tipo de referência: </option>
+		</select>
 		<div id="modes">
-
-			<div id="book-1-author" class="mode">
-				<form class="input">
-					<button>Convert</button>
-				</form>
-				<textarea class="model">
-					{SOBRENOME}, {Nome}. {Título}[: {subtítulo}]. [{Edição}. ] {Local de publicação}: {Editora}, {Ano de publicação}
-				</textarea>
-				<textarea class="output"></textarea>
+			<div name="Livro" id="book-1-author" class="mode">
+				<textarea class="model">{SOBRENOME}, {Nome}. {Título}[: {subtítulo}]. [{Edição}. ]{Local de publicação}: {Editora}, {Ano de publicação}</textarea>
 			</div>
 
-			<div id="book-2-authors" class="mode">
-				<form class="input">
-					<button>Convert</button>
-				</form>
+			<div name="Livro (2 autores)" id="book-2-authors" class="mode">
+				<textarea class="model">{SOBRENOME1}, {Nome1}; {SOBRENOME2}, {Nome2}. {Título}[: {subtítulo}]. [{Edição}. ]{Local de publicação}: {Editora}, {Ano de publicação}</textarea>
+			</div>
+
+			<div name="Livro (3 autores)" id="book-3-authors" class="mode">
+				<textarea class="model">{SOBRENOME1}, {Nome1}; {SOBRENOME2}, {Nome2}; {SOBRENOME3}, {Nome3}. {Título}[: {subtítulo}]. [{Edição}. ]{Local de publicação}: {Editora}, {Ano de publicação}</textarea>
+			</div>
+
+			<div name="Livro (vários autores)" id="book-many-authors" class="mode">
+				<textarea class="model">{SOBRENOME}, {Nome}; et al. {Título}[: {subtítulo}]. [{Edição}. ]{Local de publicação}: {Editora}, {Ano de publicação}</textarea>
+			</div>
+
+			<div name="Livro de autor desconhecido" id="book-unkown-author" class="mode">
+				<textarea class="model">{Título}, {Local de publicação}: {Editora} {Ano de publicação}</textarea>
+			</div>
+
+			<div name="Lei" id="legal" class="mode">
 				<textarea class="model"></textarea>
-				<textarea class="output"></textarea>
 			</div>
 
-			<div id="book-3-authors" class="mode">
-				<form class="input">
-					<button>Convert</button>
-				</form>
+			<div name="Artigo Constitucional" id="constitutional" class="mode">
 				<textarea class="model"></textarea>
-				<textarea class="output"></textarea>
 			</div>
 
-			<div id="book-many-authors" class="mode">
-				<form class="input">
-					<button>Convert</button>
-				</form>
+			<div name="Artigo de revista" id="magazine" class="mode">
 				<textarea class="model"></textarea>
-				<textarea class="output"></textarea>
 			</div>
 
-			<div id="book-unkown-author" class="mode">
-				<form class="input">
-					<button>Convert</button>
-				</form>
+			<div name="Palestra" id="event-talk" class="mode">
 				<textarea class="model"></textarea>
-				<textarea class="output"></textarea>
 			</div>
 
-			<div id="legal" class="mode">
-				<form class="input">
-					<button>Convert</button>
-				</form>
+			<div name="Tese" id="dissertation" class="mode">
 				<textarea class="model"></textarea>
-				<textarea class="output"></textarea>
 			</div>
 
-			<div id="constitutional" class="mode">
-				<form class="input">
-					<button>Convert</button>
-				</form>
+			<div name="Dissertação" id="dissertation" class="mode">
 				<textarea class="model"></textarea>
-				<textarea class="output"></textarea>
 			</div>
 
-			<div id="magazine" class="mode">
-				<form class="input">
-					<button>Convert</button>
-				</form>
+			<div name="Obra coletiva" id="colective-piece" class="mode">
 				<textarea class="model"></textarea>
-				<textarea class="output"></textarea>
 			</div>
 
-			<div id="event-talk" class="mode">
-				<form class="input">
-					<button>Convert</button>
-				</form>
+			<div name="Artigo online com autor" id="online-article-with-author" class="mode">
 				<textarea class="model"></textarea>
-				<textarea class="output"></textarea>
 			</div>
 
-			<div id="dissertation" class="mode">
-				<form class="input">
-					<button>Convert</button>
-				</form>
+			<div name="Artigo online sem autor" id="online-article-no-author" class="mode">
 				<textarea class="model"></textarea>
-				<textarea class="output"></textarea>
 			</div>
-
-			<div id="dissertation" class="mode">
-				<form class="input">
-					<button>Convert</button>
-				</form>
-				<textarea class="model"></textarea>
-				<textarea class="output"></textarea>
-			</div>
-
-			<div id="colective-piece" class="mode">
-				<form class="input">
-					<button>Convert</button>
-				</form>
-				<textarea class="model"></textarea>
-				<textarea class="output"></textarea>
-			</div>
-
-			<div id="online-article-with-author" class="mode">
-				<form class="input">
-					<button>Convert</button>
-				</form>
-				<textarea class="model"></textarea>
-				<textarea class="output"></textarea>
-			</div>
-
-			<div id="online-article-no-author" class="mode">
-				<form class="input">
-					<button>Convert</button>
-				</form>
-				<textarea class="model"></textarea>
-				<textarea class="output"></textarea>
-			</div>
-
 		</div>
+		<button>Copiar</button>
 	</body>
 </html>
